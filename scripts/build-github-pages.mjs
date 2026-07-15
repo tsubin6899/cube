@@ -8,6 +8,7 @@ const outputDir = resolve(projectRoot, "site");
 const logoPath = resolve(projectRoot, "public/cube-query-icon.png");
 const manifestPath = resolve(projectRoot, "public/manifest.webmanifest");
 const officialUrl = "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list";
+const mobileSettingsPatch = `<script>document.addEventListener("click",event=>{const option=event.target.closest(".settings label");if(!option)return;const input=option.querySelector("input");if(!input)return;event.preventDefault();if(input.name==="level")state.level=Number(input.value);if(input.id==="birthday")state.birthday=!state.birthday;if(input.id==="family")state.family=!state.family;save();render()})<\/script>`;
 
 function extractLiteral(source, start, end) {
   const expression = source.match(new RegExp(`${start}([\\s\\S]*?)${end}`));
@@ -49,7 +50,8 @@ const page = pageTemplate(merchantGroups, planSummaries)
   .replace(/<title>[\s\S]*?<\/title>/, "<title>Cube查詢｜現在該切哪個方案？</title>")
   .replace("</head>", '<link rel="icon" href="/cube-query-icon.png"><link rel="apple-touch-icon" href="/cube-query-icon.png"><link rel="manifest" href="/manifest.webmanifest"></head>')
   .replace(/<div class="brand">[\s\S]*?<\/div><div class="fresh">/, '<div class="brand"><img src="/cube-query-icon.png" alt="" width="36" height="36">Cube查詢</div><div class="fresh">')
-  .replace("</style>", ".brand img{width:36px;height:36px;flex:0 0 36px;border-radius:12px;box-shadow:0 9px 22px rgba(93,79,255,.42)}</style>");
+  .replace("</style>", ".brand img{width:36px;height:36px;flex:0 0 36px;border-radius:12px;box-shadow:0 9px 22px rgba(93,79,255,.42)}.settings label{touch-action:manipulation}</style>")
+  .replace("</body>", `${mobileSettingsPatch}</body>`);
 const logo = await readFile(logoPath);
 const manifest = await readFile(manifestPath, "utf8");
 await writeFile(resolve(outputDir, "index.html"), page, "utf8");
