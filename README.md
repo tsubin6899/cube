@@ -17,3 +17,21 @@ pnpm dev
 pnpm build
 node --test tests/rendered-html.test.mjs
 ```
+
+## GitHub Pages
+
+這個儲存庫已包含 GitHub Pages 自動部署流程。推送至 `main` 後，GitHub Actions 會從 `app/page.tsx` 的最新回饋資料產生純靜態網站並部署。
+
+第一次使用時，請到 GitHub 儲存庫的 **Settings → Pages → Build and deployment → Source** 選擇 **GitHub Actions**。完成後，網站網址為：
+
+```text
+https://tsubin6899.github.io/cube/
+```
+
+本機若想預覽 GitHub Pages 版本，可執行：
+
+```text
+node scripts/build-github-pages.mjs
+```
+
+產生的檔案會放在 `site/`，並不需要提交。

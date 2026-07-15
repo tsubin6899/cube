@@ -46,3 +46,6 @@ next-env.d.ts
 
 # unrelated nested repository
 /cube/
+
+# GitHub Pages build artifact
+/site/
