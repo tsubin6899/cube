@@ -797,13 +797,19 @@ export default function Home() {
                 <span className="special-count">＋{Number(birthday) + Number(family)} 項特殊資格</span>
               )}
             </div>
-            <button type="button" className="profile-button" onClick={() => setShowSettings((value) => !value)}>
+            <button
+              type="button"
+              className="profile-button"
+              aria-expanded={showSettings}
+              aria-controls="eligibility-settings"
+              onClick={() => setShowSettings((value) => !value)}
+            >
               {showSettings ? "收起設定" : "調整資格"}
             </button>
           </div>
 
           {showSettings && (
-            <div className="settings-panel">
+            <div id="eligibility-settings" className="settings-panel">
               <fieldset>
                 <legend>你的 CUBE 權益等級</legend>
                 <div className="level-grid">
