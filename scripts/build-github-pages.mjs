@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const sourcePath = resolve(projectRoot, "app/page.tsx");
 const outputDir = resolve(projectRoot, "site");
+const logoPath = resolve(projectRoot, "public/cube-query-icon.png");
+const manifestPath = resolve(projectRoot, "public/manifest.webmanifest");
 const officialUrl = "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list";
 
 function extractLiteral(source, start, end) {
@@ -42,8 +44,17 @@ const planSummaries = extractLiteral(source, "const planSummaries = ", "\\n\\nco
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
-const page = pageTemplate(merchantGroups, planSummaries).replace(',""":"&quot;"', '');
+const page = pageTemplate(merchantGroups, planSummaries)
+  .replace(',""":"&quot;"', '')
+  .replace(/<title>[\s\S]*?<\/title>/, "<title>Cube查詢｜現在該切哪個方案？</title>")
+  .replace("</head>", '<link rel="icon" href="/cube-query-icon.png"><link rel="apple-touch-icon" href="/cube-query-icon.png"><link rel="manifest" href="/manifest.webmanifest"></head>')
+  .replace(/<div class="brand">[\s\S]*?<\/div><div class="fresh">/, '<div class="brand"><img src="/cube-query-icon.png" alt="" width="36" height="36">Cube查詢</div><div class="fresh">')
+  .replace("</style>", ".brand img{width:36px;height:36px;flex:0 0 36px;border-radius:12px;box-shadow:0 9px 22px rgba(93,79,255,.42)}</style>");
+const logo = await readFile(logoPath);
+const manifest = await readFile(manifestPath, "utf8");
 await writeFile(resolve(outputDir, "index.html"), page, "utf8");
 await writeFile(resolve(outputDir, "404.html"), page, "utf8");
 await writeFile(resolve(outputDir, ".nojekyll"), "", "utf8");
+await writeFile(resolve(outputDir, "cube-query-icon.png"), logo);
+await writeFile(resolve(outputDir, "manifest.webmanifest"), manifest, "utf8");
 console.log(`GitHub Pages site generated at ${outputDir}`);

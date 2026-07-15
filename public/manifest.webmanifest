@@ -1,0 +1,17 @@
+{
+  "name": "Cube查詢",
+  "short_name": "Cube查詢",
+  "description": "快速查詢 CUBE 卡刷卡回饋方案",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071426",
+  "theme_color": "#071426",
+  "icons": [
+    {
+      "src": "/cube-query-icon.png",
+      "sizes": "2048x2048",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

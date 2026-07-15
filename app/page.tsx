@@ -738,9 +738,9 @@ export default function Home() {
         <div className="hero-glow hero-glow--two" aria-hidden="true" />
         <div className="container hero-content">
           <header className="topbar">
-            <a className="brand" href="#top" aria-label="CUBE 刷卡查首頁">
-              <span className="brand-mark" aria-hidden="true">C</span>
-              <span>CUBE 刷卡查</span>
+            <a className="brand" href="#top" aria-label="Cube查詢首頁">
+              <img className="brand-mark" src="/cube-query-icon.png" alt="" width={36} height={36} />
+              <span>Cube查詢</span>
             </a>
             <span className="freshness"><span aria-hidden="true" />2026 最新</span>
           </header>
