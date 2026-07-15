@@ -52,7 +52,7 @@ const page = pageTemplate(merchantGroups, planSummaries)
   .replace(/<div class="brand">[\s\S]*?<\/div><div class="fresh">/, '<div class="brand"><img src="/cube-query-icon.png" alt="" width="36" height="36">Cube查詢</div><div class="fresh">')
   .replace('id="settings-button" type="button"', 'id="settings-button" type="button" aria-expanded="false" onclick="const panel=document.getElementById(\'settings\');const open=panel.classList.toggle(\'show\');this.setAttribute(\'aria-expanded\',String(open))"')
   .replace('if(event.target.id==="settings-button")$("settings").classList.toggle("show")', '')
-  .replace("</style>", ".brand img{width:36px;height:36px;flex:0 0 36px;border-radius:12px;box-shadow:0 9px 22px rgba(93,79,255,.42)}.settings label{touch-action:manipulation}</style>")
+  .replace("</style>", ".brand img{width:36px;height:36px;flex:0 0 36px;border-radius:12px;box-shadow:0 9px 22px rgba(93,79,255,.42)}.settings label{touch-action:manipulation}.hero:after{pointer-events:none;z-index:0}.hero .wrap{position:relative;z-index:1}</style>")
   .replace("</body>", `${mobileSettingsPatch}</body>`);
 const logo = await readFile(logoPath);
 const manifest = await readFile(manifestPath, "utf8");
